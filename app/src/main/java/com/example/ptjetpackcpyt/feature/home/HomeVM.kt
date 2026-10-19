@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 class HomeVM(
     private val homeRepository: HomeRepository = HomeRepository()
 ) : ViewModel() {
-    private var _message: MutableStateFlow<String> = MutableStateFlow("")
+    private var _message: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
     val message = _message.asStateFlow()
 
     fun getMessage(){

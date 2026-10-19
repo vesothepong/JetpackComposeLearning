@@ -1,13 +1,15 @@
 
 package com.example.ptjetpackcpyt.feature.home
 
+
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -15,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ptjetpackcpyt.ui.theme.BaseTheme
 
@@ -48,10 +51,20 @@ fun ScreenHome() {
         }
     ) { paddingValues ->
         LazyColumn(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxWidth()
+
         ) {
-            item {
-                Text(message)
+            items(message.size){
+                Text(
+                    text = message[it],
+                    modifier = Modifier
+                        .height(56.dp)
+                        .fillMaxWidth()
+
+                )
+                HorizontalDivider()
             }
 
 

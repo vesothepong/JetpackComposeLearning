@@ -1,7 +1,11 @@
 package com.example.ptjetpackcpyt.feature.home
 
 class HomeRepository {
-    suspend fun getMessage():String{
-        return "This is my message."
+    private val messageList = (1..100).map{
+        "This is my message $it"
+    }
+
+    suspend fun getMessage(): List<String>{
+        return messageList
     }
 }
