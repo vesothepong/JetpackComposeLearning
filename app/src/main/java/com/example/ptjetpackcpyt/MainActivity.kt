@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.ptjetpackcpyt.feature.home.ScreenHome
+import com.example.ptjetpackcpyt.navigation.AppNavigation
 import com.example.ptjetpackcpyt.ui.theme.BaseTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +19,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             BaseTheme {
-                ScreenHome()
+                //ScreenHome()
+                AppNavigation()
             }
         }
     }
