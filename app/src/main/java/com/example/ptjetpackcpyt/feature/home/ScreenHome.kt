@@ -40,7 +40,7 @@ fun ScreenHome() {
             Button(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
-                    //das
+                    homeVM.getMessage()
                 },
             ){
                 Text("Get Message")
