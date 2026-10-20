@@ -41,41 +41,52 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import com.example.ptjetpackcpyt.model.NotificationType
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.items
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenNotification(
-    notificationVM: NotificationVM= NotificationVM()
-){
-    val notificationList by notificationVM.notificationList.collectAsStateWithLifecycle()
+    notificationVM: NotificationVM = viewModel()
+) {
+    val notificationList by notificationVM.notificationList
+        .collectAsStateWithLifecycle()
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(notificationVM) {
         notificationVM.getNotificationList()
     }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = {Text("Notification")}
+                title = {
+                    Text("Notification")
+                }
             )
         }
-    ) {
+    ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
-                .padding(it)
+                .padding(innerPadding)
                 .fillMaxWidth(),
             contentPadding = PaddingValues(
                 horizontal = 16.dp,
                 vertical = 8.dp
             )
         ) {
-            items(notificationList.size){index->
+            items(
+                items = notificationList,
+                key = { notification -> notification.notificationId }
+            ) { notification ->
                 NotificationCard(
-                    notification=notificationList[index],
+                    notification = notification
                 )
             }
         }
     }
 }
+
 @Composable
 fun NotificationCard(
     notification: NotificationResponse,
@@ -197,7 +208,7 @@ fun NotificationCard(
 @Preview(showBackground=true)
 @Composable
 fun ScreenNotificationPreview(){
-    BaseTheme(){
+    BaseTheme{
         ScreenNotification()
     }
 }
