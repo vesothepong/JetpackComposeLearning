@@ -10,6 +10,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.ptjetpackcpyt.feature.home.ScreenHome
 import com.example.ptjetpackcpyt.navigation.AppNavigation
 import com.example.ptjetpackcpyt.ui.theme.BaseTheme
+import com.example.ptjetpackcpyt.utils.LoadingContent
+import com.example.ptjetpackcpyt.utils.LoadingUtil
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +21,9 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             BaseTheme {
-                //ScreenHome()
+                if (LoadingUtil.isLoading.value) {
+                    LoadingContent()
+                }
                 AppNavigation()
             }
         }

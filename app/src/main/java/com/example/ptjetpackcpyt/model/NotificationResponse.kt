@@ -1,7 +1,5 @@
 package com.example.ptjetpackcpyt.model
 
-import com.example.ptjetpackcpyt.feature.notification.NotificationVM
-
 data class NotificationResponse(
     val notificationId: String,
     val title: String,

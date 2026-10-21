@@ -19,7 +19,11 @@ fun AppNavigation() {
 
     NavDisplay(
         backStack = backStack,
-        onBack = { backStack.removeLastOrNull() },
+        onBack = {
+            if (backStack.size > 1) {
+                backStack.removeLastOrNull()
+            }
+        },
         entryProvider = { key ->
             when (key) {
                 is Home -> NavEntry(key) {
@@ -32,7 +36,9 @@ fun AppNavigation() {
                 is Notification -> NavEntry(key) {
                     ScreenNotification(
                         onBackClick = {
-                            backStack.removeLastOrNull()
+                            if (backStack.size > 1) {
+                                backStack.removeLastOrNull()
+                            }
                         }
                     )
                 }
