@@ -2,15 +2,20 @@
 package com.example.ptjetpackcpyt.feature.home
 
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -23,9 +28,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ptjetpackcpyt.ui.theme.BaseTheme
 
+@SuppressLint("ViewModelConstructorInComposable")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenHome() {
+fun ScreenHome( onNavigateToNotification: () -> Unit = {}) {
 
     val homeVM = HomeVM()
     val message by homeVM.message.collectAsStateWithLifecycle()
@@ -38,6 +44,14 @@ fun ScreenHome() {
             TopAppBar(
                 title = {
                     Text("My App")
+                },
+                actions = {
+                    IconButton(onClick = onNavigateToNotification) {
+                        Icon(
+                            imageVector = Icons.Default.Notifications,
+                            contentDescription = "Notifications"
+                        )
+                    }
                 }
             )
         },

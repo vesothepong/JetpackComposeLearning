@@ -7,8 +7,11 @@ import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
 import com.example.ptjetpackcpyt.feature.home.ScreenHome
+import com.example.ptjetpackcpyt.feature.notification.ScreenNotification
 
 data object Home
+
+data object Notification
 @Composable
 fun AppNavigation() {
 
@@ -20,7 +23,18 @@ fun AppNavigation() {
         entryProvider = { key ->
             when (key) {
                 is Home -> NavEntry(key) {
-                    ScreenHome()
+                    ScreenHome(
+                        onNavigateToNotification = {
+                            backStack.add(Notification)
+                        }
+                    )
+                }
+                is Notification -> NavEntry(key) {
+                    ScreenNotification(
+                        onBackClick = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
                 }
                 else -> NavEntry(Unit) { Text("Unknown route") }
             }
