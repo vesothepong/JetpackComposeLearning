@@ -6,12 +6,15 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
+import com.example.ptjetpackcpyt.coroutine.card.CardScreenView
 import com.example.ptjetpackcpyt.feature.home.ScreenHome
 import com.example.ptjetpackcpyt.feature.notification.ScreenNotification
+
 
 data object Home
 
 data object Notification
+data object CardList
 @Composable
 fun AppNavigation() {
 
@@ -26,13 +29,18 @@ fun AppNavigation() {
         },
         entryProvider = { key ->
             when (key) {
+
                 is Home -> NavEntry(key) {
                     ScreenHome(
                         onNavigateToNotification = {
                             backStack.add(Notification)
+                        },
+                        onNavigateToCards = {
+                            backStack.add(CardList)
                         }
                     )
                 }
+
                 is Notification -> NavEntry(key) {
                     ScreenNotification(
                         onBackClick = {
@@ -41,6 +49,9 @@ fun AppNavigation() {
                             }
                         }
                     )
+                }
+                is CardList -> NavEntry(key) {
+                    CardScreenView()
                 }
                 else -> NavEntry(Unit) { Text("Unknown route") }
             }

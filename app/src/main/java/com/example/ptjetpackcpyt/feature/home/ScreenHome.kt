@@ -1,6 +1,7 @@
 package com.example.ptjetpackcpyt.feature.home
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ptjetpackcpyt.coroutine.card.CardScreenView
 import com.example.ptjetpackcpyt.model.base.BaseUIState
 import com.example.ptjetpackcpyt.ui.theme.BaseTheme
 import com.example.ptjetpackcpyt.utils.LoadingUtil
@@ -38,6 +40,7 @@ import com.example.ptjetpackcpyt.utils.LoadingUtil
 @Composable
 fun ScreenHome(
     onNavigateToNotification: () -> Unit = {},
+    onNavigateToCards: () -> Unit ={},
     homeVM: HomeVM = viewModel()
 ) {
     val messageUIState by homeVM.messageUIState.collectAsStateWithLifecycle()
@@ -101,29 +104,45 @@ fun ScreenHome(
         }
     ) { paddingValues ->
         when (val state = messageUIState) {
+
             is BaseUIState.Success -> {
-                LazyColumn(
+                Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(paddingValues)
                 ) {
-                    items(state.data.size) { index ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(56.dp)
-                                .padding(horizontal = 16.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = state.data[index],
-                                style = MaterialTheme.typography.bodyLarge
-                            )
+                    Button(
+                        onClick = onNavigateToCards,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                    ) {
+                        Text("View Cards")
+                    }
+
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        items(state.data.size) { index ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(56.dp)
+                                    .padding(horizontal = 16.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = state.data[index],
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+                            }
+
+                            HorizontalDivider()
                         }
-                        HorizontalDivider()
                     }
                 }
             }
+
             is BaseUIState.Error -> {
                 Box(
                     modifier = Modifier
@@ -177,6 +196,7 @@ fun ScreenHome(
 fun ScreenHomePreview() {
     BaseTheme {
         ScreenHome()
+
     }
 }
 
