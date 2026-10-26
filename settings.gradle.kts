@@ -24,4 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "PTJetPackCPYT"
 include(":app")
- 
+include(":core")

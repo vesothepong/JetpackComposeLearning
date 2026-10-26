@@ -2,6 +2,8 @@ package com.example.ptjetpackcpyt.coroutine.card
 
 import com.example.ptjetpackcpyt.coroutine.model.CardModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlin.time.Duration.Companion.milliseconds
 
 class cardRepository {
@@ -12,8 +14,10 @@ class cardRepository {
             description = "This is the description for card ${index + 1}"
         )
     }
-   suspend fun getMessage():List<CardModel>{
+   suspend fun getMessage(): Flow<List<CardModel>> {
        delay(1000.milliseconds)
-       return cardList
+       return flow {
+           emit(cardList)
+       }
     }
 }
